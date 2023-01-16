@@ -10,7 +10,8 @@ module.exports = {
         autoIncrement: true
       },
       displayName: {
-        type:Sequelize.INTEGER,
+        // FIXED STRING BUG
+        type:Sequelize.STRING,
         allowNull: false,
         field: 'display_name',
       },
