@@ -2,7 +2,8 @@ const { User } = require('../models');
 const { createToken } = require('../auth/createToken');
 
 const login = async (fields) => {
-    const result = User.findOne({ where: fields });
+    const result = await User.findOne({ where: fields });
+    console.log('loooooog', result);
 
     if (!result) return { type: 400, message: 'Invalid fields' };
 
