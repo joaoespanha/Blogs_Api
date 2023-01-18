@@ -16,4 +16,14 @@ const postValidations = async (req, res, next) => {
         return next();
     };
 
-module.exports = { postValidations };
+    const updateValidations = async (req, res, next) => {
+        const { title, content } = req.body;
+
+        const checkFields = title && content;
+
+        if (!checkFields) return res.status(400).json({ message: 'Some required fields are missing' });
+
+        next();
+    };
+
+module.exports = { postValidations, updateValidations };

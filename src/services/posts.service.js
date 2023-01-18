@@ -54,4 +54,23 @@ const register = async ({ categoryIds, ...blogPostData }) => {
     return result;
   };
 
-module.exports = { getAll, getById, register };
+  const update = async ({ postId, userId, ...blogPostData }) => {
+    const blogPost = await BlogPost.findOne(
+      {
+        where: { id: postId, userId },
+        include: [
+          { model: User, as: 'user', attributes: { exclude: ['password'] } },
+          { model: Category, as: 'categories', through: { attributes: [] } },
+        ],
+      },
+    );
+
+    if (!blogPost) return { type: 401, message: 'Unauthorized user' };
+  
+    blogPost.set(blogPostData);
+    await blogPost.save();
+  
+    return { type: null, message: blogPost };
+  };
+
+module.exports = { getAll, getById, register, update };
