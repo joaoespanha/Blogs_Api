@@ -9,7 +9,7 @@ const processToken = async (req, res, next) => {
         const { type, message } = await checkTokenAndUser(authorization);
         if (type) return res.status(type).json({ message });
 
-        req.user = message;
+        req.adminUser = message;
         return next();
     } catch (error) {
         return res.status(401).json({ message: 'Expired or invalid token' });
