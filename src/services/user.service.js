@@ -38,4 +38,10 @@ const getById = async (id) => {
     return { type: null, message: user };
 };
 
-module.exports = { register, getUserByEmailandId, getAll, getById };
+const deleteUser = async (userId) => {
+    const user = await User.findByPk(userId);
+   
+    await user.destroy();
+  };
+
+module.exports = { register, getUserByEmailandId, getAll, getById, deleteUser };

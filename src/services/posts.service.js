@@ -89,5 +89,6 @@ const register = async ({ categoryIds, ...blogPostData }) => {
   
       throw error;
     }
+    await blogPost.destroy();
   };
 module.exports = { getAll, getById, register, update, deletePost };

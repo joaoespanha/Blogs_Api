@@ -25,4 +25,15 @@ const getById = async (req, res) => {
     return res.status(200).json(message);
 };
 
-module.exports = { register, getAll, getById };
+const deleteUser = async (req, res) => {
+    const { id: userId } = req.adminUser;
+    try {
+    await userService.deleteUser(userId);
+    } catch (err) {
+        return res.status(err.statusCode).json({ message: err.message });
+    }
+    
+    return res.sendStatus(204);
+  };
+
+module.exports = { register, getAll, getById, deleteUser };
