@@ -21,7 +21,9 @@ const postValidations = async (req, res, next) => {
 
         const checkFields = title && content;
 
-        if (!checkFields) return res.status(400).json({ message: 'Some required fields are missing' });
+        if (!checkFields) { 
+            return res.status(400).json({ message: 'Some required fields are missing' }); 
+}
 
         next();
     };
