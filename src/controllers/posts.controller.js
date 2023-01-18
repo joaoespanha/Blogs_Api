@@ -31,4 +31,16 @@ const update = async (req, res) => {
     if (type) return res.status(type).json({ message });
     res.status(200).json(message);
 };
-module.exports = { getAll, getById, register, update };
+
+const deletePost = async (req, res) => {
+    const { id: postId } = req.params;
+    const { id: userId } = req.adminUser;
+    try {
+    await postsServices.deletePost({ postId, userId });
+    } catch (err) {
+        return res.status(err.statusCode).json({ message: err.message });
+    }
+    
+    return res.sendStatus(204);
+  };
+module.exports = { getAll, getById, register, update, deletePost };

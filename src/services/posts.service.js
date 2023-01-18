@@ -73,4 +73,21 @@ const register = async ({ categoryIds, ...blogPostData }) => {
     return { type: null, message: blogPost };
   };
 
-module.exports = { getAll, getById, register, update };
+  const deletePost = async ({ postId, userId }) => {
+    const blogPost = await BlogPost.findByPk(postId);
+  
+    if (!blogPost) {
+      const error = new Error('Post does not exist');
+      error.statusCode = 404;
+  
+      throw error;
+    }
+  
+    if (blogPost.userId !== userId) {
+      const error = new Error('Unauthorized user');
+      error.statusCode = 401;
+  
+      throw error;
+    }
+  };
+module.exports = { getAll, getById, register, update, deletePost };
