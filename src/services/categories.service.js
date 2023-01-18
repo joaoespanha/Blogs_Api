@@ -5,4 +5,10 @@ const register = async (name) => {
 
     return { message: dataValues };
 };
-module.exports = { register };
+
+const getAll = async () => {
+    const categories = await Category.findAll();
+
+    return { message: categories };
+};
+module.exports = { register, getAll };
